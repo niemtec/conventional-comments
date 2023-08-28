@@ -1,4 +1,4 @@
-# Conventional comments Changelog
+# Conventional Comments Changelog
 
 ## [Initial Release] - 2023-08-27
 
