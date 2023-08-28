@@ -1,0 +1,35 @@
+name: Publish changes to the extension
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install NPM
+      run: |
+        npm install
+    - name: Build Extension
+      run: |
+        npm run build
+    - name: Run Linter
+      run: |
+        npm run lint
+    - name: Pull updates from Raycast
+      run: |
+        npx @raycast/api@latest pull-contributions
+    - name: Publish
+      run: |
+         npm run publish
